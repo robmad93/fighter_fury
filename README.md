@@ -41,9 +41,11 @@ Potential future updates for Fighter Fury could include:
 2. **Navigate to the project directory:**
 
   cd fighter_fury
+  
 3. **Install the required dependencies:**
 
 pip install -r requirements.txt
+
 4. **Run the game:**
 
 python fighter_fury.py
