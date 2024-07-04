@@ -6,6 +6,10 @@ Fighter Fury is an engaging arcade-style game where players pilot a fighter jet,
 
 In Fighter Fury, you control a fighter jet that can move vertically on the screen. Your objective is to shoot down the enemies that appear from the right and advance left towards you. The enemies come in waves, and you must destroy them before they reach your side of the screen. As you progress, the game becomes increasingly challenging.
 
+## Screenshot
+
+![ff_screenshot](https://github.com/robmad93/fighter_fury/assets/131868277/6083f2a4-aec3-4bd8-8970-5c03d230383f)
+
 ## Controls
 
 - **Arrow Up:** Move the jet up
