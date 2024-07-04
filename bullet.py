@@ -3,7 +3,7 @@ from pygame.sprite import Sprite
 
 
 class Bullet(Sprite):
-    """A class to manage bullets fired from the fighter jet."""
+    """A class to manage bullets fired from the jet."""
 
     def __init__(self, ff_game):
         """Create a bullet object at the jet's current position."""
@@ -16,16 +16,16 @@ class Bullet(Sprite):
         self.rect = pygame.Rect(
             0, 0, self.settings.bullet_width, self.settings.bullet_height
         )
-        self.rect.midleft = ff_game.fighter_jet.rect.midright
+        self.rect.midright = ff_game.jet.rect.midright
 
-        # Store the bullet's position as a decimal value.
+        # Store the bullet's position as a float.
         self.x = float(self.rect.x)
 
     def update(self):
-        """Move the bullet right across the screen."""
-        # Update the decimal position of the bullet.
+        """Move the bullet to the right on the scrren."""
+        # update the exact position of the bullet
         self.x += self.settings.bullet_speed
-        # Update the rect position.
+        # update the rect position
         self.rect.x = self.x
 
     def draw_bullet(self):

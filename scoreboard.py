@@ -1,13 +1,14 @@
 import pygame.font
 from pygame.sprite import Group
-from fighter_jet import FighterJet
+
+from jet import Jet
 
 
 class Scoreboard:
-    """A class to report scoring information."""
+    """A class to report scording information."""
 
     def __init__(self, ff_game):
-        """Initialize scorekeeping attributes"""
+        """Initialize scorekeeping attributes."""
         self.ff_game = ff_game
         self.screen = ff_game.screen
         self.screen_rect = self.screen.get_rect()
@@ -16,37 +17,38 @@ class Scoreboard:
 
         # Font settings for scoring information.
         self.text_color = (30, 30, 30)
-        self.font = pygame.font.Font(None, 48)
+        self.font = pygame.font.SysFont(None, 48)
 
         # Prepare the initial score images.
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
-        self.prep_fighter_jets()
+        self.prep_jets()
 
     def prep_score(self):
         """Turn the score into a rendered image."""
         rounded_score = round(self.stats.score, -1)
-        score_str = "{:,}".format(rounded_score)
+        score_str = f"{rounded_score:,}"
         self.score_image = self.font.render(
             score_str, True, self.text_color, self.settings.bg_color
         )
+
         # Display the score at the top right of the screen.
         self.score_rect = self.score_image.get_rect()
         self.score_rect.right = self.screen_rect.right - 20
         self.score_rect.top = 20
 
     def show_score(self):
-        """Draw scores, level, and fighter jets to the screen."""
+        """Draw score, level, and jets to the screen."""
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
-        self.fighter_jets.draw(self.screen)
+        self.jets.draw(self.screen)
 
     def prep_high_score(self):
         """Turn the high score into a rendered image."""
         high_score = round(self.stats.high_score, -1)
-        high_score_str = "{:,}".format(high_score)
+        high_score_str = f"{high_score:,}"
         self.high_score_image = self.font.render(
             high_score_str, True, self.text_color, self.settings.bg_color
         )
@@ -74,11 +76,14 @@ class Scoreboard:
         self.level_rect.right = self.score_rect.right
         self.level_rect.top = self.score_rect.bottom + 10
 
-    def prep_fighter_jets(self):
-        """Show how many fighter jets are left."""
-        self.fighter_jets = Group()
-        for fighter_jet_number in range(self.stats.fighter_jets_left):
-            fighter_jet = FighterJet(self.ff_game)
-            fighter_jet.rect.x = 10 + fighter_jet_number * fighter_jet.rect.width
-            fighter_jet.rect.y = 10
-            self.fighter_jets.add(fighter_jet)
+    def prep_jets(self):
+        """Show how many jets are left."""
+        self.jets = Group()
+        for jet_number in range(self.stats.jets_left):
+            jet = Jet(self.ff_game)
+            # Place on bottom right corner of the screen.
+            jet.rect.x = self.ff_game.settings.screen_width - (jet_number + 1) * (
+                jet.rect.width + 10
+            )
+            jet.rect.y = self.ff_game.settings.screen_height - jet.rect.height - 10
+            self.jets.add(jet)

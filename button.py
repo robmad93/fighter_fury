@@ -2,17 +2,18 @@ import pygame.font
 
 
 class Button:
+    """A class to build buttons for the game."""
 
     def __init__(self, ff_game, msg):
         """Initialize button attributes."""
         self.screen = ff_game.screen
         self.screen_rect = self.screen.get_rect()
 
-        # Set the dimensions & properties of the button.
+        # Set the dimensions and properties of the button.
         self.width, self.height = 200, 50
-        self.button_color = (0, 255, 0)
+        self.button_color = (0, 135, 0)
         self.text_color = (255, 255, 255)
-        self.font = pygame.font.Font(None, 48)
+        self.font = pygame.font.SysFont(None, 48)
 
         # Build the button's rect object and center it.
         self.rect = pygame.Rect(0, 0, self.width, self.height)
@@ -28,6 +29,6 @@ class Button:
         self.msg_image_rect.center = self.rect.center
 
     def draw_button(self):
-        # Draw blank button and then draw message.
+        """Draw blank button and then draw message."""
         self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)

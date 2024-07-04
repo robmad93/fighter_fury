@@ -3,7 +3,7 @@ from pygame.sprite import Sprite
 
 
 class Enemy(Sprite):
-    """A class to represent a single enemy."""
+    """A class to represent a sinlge enemy in the fleet."""
 
     def __init__(self, ff_game):
         """Initialize the enemy and set its starting position."""
@@ -12,22 +12,23 @@ class Enemy(Sprite):
         self.settings = ff_game.settings
 
         # Load the enemy image and set its rect attribute.
-        self.image = pygame.image.load("images/enemy_plane.bmp")
+        self.image = pygame.image.load("images/enemy.bmp")
         self.rect = self.image.get_rect()
 
-        # Start each new enemy near the top right of the screen.
-        self.rect.x = self.rect.width
-        self.rect.y = self.rect.height
-        # Store the enemy's exact horizontal position.
+        # Start each new enemy near the far right of the screen.
+        self.rect.x = self.settings.screen_width + self.rect.width
+        self.rect.y = 0 + self.rect.height
+
+        # Store the enemy's exact vertical position.
+        self.y = float(self.rect.y)
         self.x = float(self.rect.x)
 
     def check_edges(self):
-        """Return True if enemy is at edge of screen."""
+        """Return True if the enemy is at the edge of screen."""
         screen_rect = self.screen.get_rect()
-        if self.rect.right >= screen_rect.right or self.rect.left <= 0:
-            return True
+        return (self.rect.bottom >= screen_rect.bottom) or (self.rect.top <= 0)
 
     def update(self):
-        """Move the enemy to the top or bottom."""
-        self.x += self.settings.enemy_speed * self.settings.fleet_direction
-        self.rect.x = self.x
+        """Move the enemy up or down."""
+        self.y += self.settings.enemy_speed * self.settings.fleet_direction
+        self.rect.y = self.y
